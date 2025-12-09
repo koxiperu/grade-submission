@@ -14,16 +14,25 @@
     <div class="container">
       <h2>Grade Portal</h2>
       <form method="post" th:object="${grade}" th:action="@{/handleSubmit}">
-        <select id="student" name="studentId" th:field="*{studentId}">
+        <select id="student" name="studentId" th:field="*{student}">
           <option value="" disabled selected>Select a student</option>
           <option
             th:each="student : ${students}"
-            th:value="${student.studentId}"
+            th:value="${student.id}"
             th:text="${student.firstName} + ' '+${student.lastName}"
           ></option>
         </select>
         <input type="text" placeholder="Score" th:field="*{score}" />
-        <input type="text" placeholder="Subject" th:field="*{subject}" />
+
+        <select th:field="*{course}">
+          <option value="" disabled selected>Select a course</option>
+          <option
+            th:each="c : ${courses}"
+            th:value="${c.id}"
+            th:text="${c.name}"
+          ></option>
+        </select>
+
         <input type="hidden" th:field="*{id}" />
         <br /><br />
         <input type="submit" value="Submit" />

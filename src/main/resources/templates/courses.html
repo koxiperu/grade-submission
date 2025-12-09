@@ -17,24 +17,10 @@
       <h2>Grades</h2>
       <table id="table">
         <tr>
-          <th>Student</th>
           <th>Subject</th>
-          <th>Score</th>
         </tr>
-        <tr th:each="grade : ${grades}">
-          <td th:text="${grade.student.firstName}+' ' +${grade.student.lastName}">Andre</td>
+        <tr th:each="c : ${courses}">
           <td th:text="${grade.course.name}">Spring Boot</td>
-          <td th:text="${grade.score}">20</td>
-          <td>
-            <a class="update" role="button" th:href="@{/(id=${grade.id})}"
-              >Update</a
-            >
-          </td>
-          <td>
-            <a class="update" role="button" th:href="@{/delete(id=${grade.id})}"
-              >Delete</a
-            >
-          </td>
         </tr>
       </table>
     </div>
