@@ -10,5 +10,5 @@ import lu.cnfpc.grade_submission.model.Grade;
 
 @Repository
 public interface GradeRepository extends JpaRepository<Grade, Long> {
-    List<Grade> findByStudentId(Long studentId);
+
 }

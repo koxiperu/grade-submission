@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -16,19 +17,21 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 @Table(name="students")
 public class Student {
-    @NotBlank(message= "Firstname cannot be empty!")
-    @Column(name="first_name", nullable=false)
-    private String firstName;
-    @NotBlank(message= "Lastname cannot be empty!")
-    @Column(name="last_name", nullable=false)
-    private String lastName;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;
 
-    @OneToMany(mappedBy="student",cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Grade> grades = new ArrayList<>();
+    @NotBlank(message= "Firstname cannot be empty!")
+    @Column(name="first_name", nullable=false)
+    private String firstName;
+
+    @NotBlank(message= "Lastname cannot be empty!")
+    @Column(name="last_name", nullable=false)
+    private String lastName;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Enrollment> enrollments = new ArrayList<>();
 
     public Student() {
     }
@@ -60,6 +63,9 @@ public class Student {
         this.id = id;
     }
 
+    public List<Enrollment> getEnrollments() {
+        return enrollments;
+    }
     
     
 }

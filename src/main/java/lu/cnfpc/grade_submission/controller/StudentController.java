@@ -1,22 +1,29 @@
 package lu.cnfpc.grade_submission.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
+import lu.cnfpc.grade_submission.model.Course;
 import lu.cnfpc.grade_submission.model.Student;
+import lu.cnfpc.grade_submission.service.CourseService;
 import lu.cnfpc.grade_submission.service.StudentService;
 
 @Controller
 public class StudentController {
 
     private StudentService studentService;
+    private CourseService courseService;
 
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, CourseService courseService){
+        this.courseService = courseService;
         this.studentService = studentService;
     }
 
@@ -51,4 +58,17 @@ public class StudentController {
         studentService.deleteStudent(id);
         return "redirect:/students";
     } 
+
+    @GetMapping("/students/{student_id}/enrollments")
+    public String listCoursesForStudent(@PathVariable("student_id") Long studentId, Model model) {
+        Student student = studentService.getStudentbyId(studentId);
+        if(student == null) return "redirect:/students";
+
+        List<Course> courses = courseService.getCoursesForStudent(studentId);
+
+        model.addAttribute("student", student);
+        model.addAttribute("courses", courses);
+        return "student_courses";
+    }
+    
 }

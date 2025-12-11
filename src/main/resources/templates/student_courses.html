@@ -1,0 +1,29 @@
+<!DOCTYPE >
+<html>
+  <head>
+    <title>Grades</title>
+    <link rel="stylesheet" th:href="@{/grades.css}" />
+  </head>
+  <body>
+    <div class="topnav">
+      <a th:href="@{/}">Add Grade</a>
+      <a th:href="@{/grades}">Grades</a>
+      <a th:href="@{/addstudent}">Add Student</a>
+      <a th:href="@{/students}">Students</a>
+    </div>
+
+    <div class="container">
+      <p th:if="${message}" th:text="${message}"></p>
+      <h2>Courses of student</h2>
+      <h2 th:text="${student.firstName}+' '+${student.lastName}"></h2>
+      <table id="table">
+        <tr>
+          <th>Subject</th>
+        </tr>
+        <tr th:each="c : ${courses}">
+          <td th:text="${c.name}">Spring Boot</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

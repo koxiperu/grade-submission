@@ -19,10 +19,6 @@ public class GradeService {
         this.gradeRepository = gradeRepository;
     }
 
-    //Methods that interact with gradeRepository
-
-
-    // Get Grade by Id
     public Grade getGradeByID(Long id){
         return gradeRepository.findById(id).orElseThrow(()-> new GradeNotFoundException("Grade with id "+id+" not found"));
     }
@@ -38,5 +34,6 @@ public class GradeService {
     public void remove(Long id){
         gradeRepository.deleteById(id);;
     }
+    
 
 }
